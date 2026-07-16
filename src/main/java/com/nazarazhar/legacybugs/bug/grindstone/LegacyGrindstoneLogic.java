@@ -8,13 +8,23 @@ public final class LegacyGrindstoneLogic {
     }
 
     /**
-     * Recreates the Grindstone enchantment merge bug from snapshot 24w11a.
+     * Recreates the Grindstone enchantment merge bug introduced in snapshot
+     * 24w11a.
      */
     public static ItemStack merge(ItemStack input, ItemStack additional) {
 
-        // TODO:
-        // This method will reproduce LB-001.
+        if (!input.is(additional.getItem())) {
+            return ItemStack.EMPTY;
+        }
 
-        return ItemStack.EMPTY;
+        ItemStack result = input.copyWithCount(1);
+
+        GrindstoneDurability.merge(result, input, additional);
+
+        GrindstoneEnchantments.merge(result, input, additional);
+
+        GrindstoneComponents.finish(result);
+
+        return result;
     }
 }
