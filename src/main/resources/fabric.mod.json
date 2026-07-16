@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "legacy-bugs",
+	"version": "${version}",
+	"name": "Legacy Bugs",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Nazar Azhar"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "GPL-3.0-only",
+	"icon": "assets/legacy-bugs/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.nazarazhar.legacybugs.LegacyBugs"
+		],
+		"client": [
+			"com.nazarazhar.legacybugs.client.LegacyBugsClient"
+		]
+	},
+	"mixins": [
+		"legacy-bugs.mixins.json",
+		{
+			"config": "legacy-bugs.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~26.1.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
