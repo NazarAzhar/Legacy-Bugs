@@ -161,3 +161,72 @@ Note:
 - [x] Test bow Mending + Infinity conflict case
 - [x] Test durability behavior
 - [x] Clean debug logs before release
+
+---
+
+## LB-002
+
+**Name**  
+MC-271398 Crafting Result Bug
+
+**Minecraft Version**  
+24w18a
+
+**Target Mod Version**  
+Minecraft 1.21.6 / 26.1.2
+
+**Mojang Issue**  
+MC-271398
+
+**Status**  
+🟡 Research
+
+**Description**  
+A crafting result handling bug observed in snapshot 24w18a.
+
+The bug is related to how the crafting result slot handles remaining items after a crafted item is taken. The research target is to reproduce the original 24w18a behavior as accurately as possible in Minecraft 1.21.6 / 26.1.2.
+
+Unlike LB-001, this bug is expected to involve crafting menu logic instead of grindstone logic.
+
+**Observed 24w18a Behavior**
+
+To be documented during research.
+
+**Legacy Bugs Implementation**
+
+Not implemented yet.
+
+The implementation target will be added after the exact 24w18a trigger condition is confirmed.
+
+**Research Notes**
+
+Relevant current Minecraft classes to investigate:
+
+- `net.minecraft.world.inventory.CraftingMenu`
+- `net.minecraft.world.inventory.ResultSlot`
+- `net.minecraft.world.item.crafting.CraftingInput`
+
+Important method to inspect:
+
+- `ResultSlot.onTake`
+
+Potential behavior area:
+
+- Crafting result slot
+- Remaining items after crafting
+- Container items returned to the crafting grid
+- Grid position mapping
+- `CraftingInput.Positioned`
+- `getRemainingItems`
+
+**Progress**
+
+- [x] Create LB-002 documentation section
+- [x] Create crafting mixin package
+- [ ] Locate current 26.1.2 crafting result code
+- [ ] Locate 24w18a crafting result code
+- [ ] Compare 24w18a behavior with 26.1.2 behavior
+- [ ] Identify exact bug trigger condition
+- [ ] Implement mixin
+- [ ] Test in game
+- [ ] Document confirmed behavior
