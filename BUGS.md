@@ -73,6 +73,24 @@ Result:
 - Bottom slot after update: Diamond Sword with Fire Aspect II and Looting III
 - Output slot: Diamond Sword without enchantments
 
+**Confirmed Test C**
+
+Input:
+
+- Top slot: Diamond Sword with Fire Aspect II and Looting III
+- Bottom slot: Diamond Sword with Sharpness V
+
+Result:
+
+- Top slot after update: Diamond Sword with Sharpness V, Fire Aspect II, and Looting III
+- Bottom slot after update: Diamond Sword with Sharpness V
+- Output slot: Diamond Sword without enchantments
+
+Note:
+
+- Enchantment display order may differ from input order.
+- The important behavior is that the top input item contains enchantments from both input items.
+
 **Progress**
 
 - [x] Project setup
@@ -83,7 +101,7 @@ Result:
 - [x] Implement v2 top-input mutation
 - [x] Test Fire Aspect II + Looting III case
 - [x] Test Sharpness V + Looting III + Fire Aspect II case
-- [ ] Test reversed input order
+- [x] Test reversed input order
 - [ ] Test armor protection conflict case
 - [ ] Test durability behavior
 - [x] Clean debug logs before release
