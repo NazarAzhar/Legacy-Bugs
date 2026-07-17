@@ -3,13 +3,12 @@
 	"id": "legacy-bugs",
 	"version": "${version}",
 	"name": "Legacy Bugs",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "A research-based Fabric mod that restores historical Minecraft bugs as accurately as possible.",
 	"authors": [
 		"Nazar Azhar"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/NazarAzhar/Legacy-Bugs"
 	},
 	"license": "GPL-3.0-only",
 	"icon": "assets/legacy-bugs/icon.png",
