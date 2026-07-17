@@ -125,6 +125,27 @@ Note:
 
 - This confirms that mutually exclusive bow enchantments can be merged into the top input item.
 
+**Confirmed Test F**
+
+Input:
+
+- Top slot: Diamond Sword with Sharpness V, durability around 150 / 1561
+- Bottom slot: Diamond Sword with Looting III, durability around 800 / 1561
+
+Result:
+
+- Top slot after update: Diamond Sword with Sharpness V and Looting III
+- Top slot durability stays the same as the original top input item
+- Bottom slot after update: Diamond Sword with Looting III
+- Bottom slot durability stays the same as the original bottom input item
+- Output slot: Diamond Sword without enchantments
+- Output slot durability is around 1028 / 1561
+
+Note:
+
+- This confirms that the top input item receives merged enchantments.
+- The grindstone output still follows normal durability repair behavior.
+
 **Progress**
 
 - [x] Project setup
@@ -138,5 +159,5 @@ Note:
 - [x] Test reversed input order
 - [x] Test armor protection conflict case
 - [x] Test bow Mending + Infinity conflict case
-- [ ] Test durability behavior
+- [x] Test durability behavior
 - [x] Clean debug logs before release
