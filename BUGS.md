@@ -91,6 +91,40 @@ Note:
 - Enchantment display order may differ from input order.
 - The important behavior is that the top input item contains enchantments from both input items.
 
+**Confirmed Test D**
+
+Input:
+
+- Top slot: Diamond Chestplate with Protection IV
+- Bottom slot: Diamond Chestplate with Blast Protection IV, Fire Protection IV, and Projectile Protection IV
+
+Result:
+
+- Top slot after update: Diamond Chestplate with Protection IV, Blast Protection IV, Fire Protection IV, and Projectile Protection IV
+- Bottom slot after update: Diamond Chestplate with Blast Protection IV, Fire Protection IV, and Projectile Protection IV
+- Output slot: Diamond Chestplate without enchantments
+
+Note:
+
+- This confirms that mutually exclusive armor protection enchantments can be merged into the top input item.
+
+**Confirmed Test E**
+
+Input:
+
+- Top slot: Bow with Mending
+- Bottom slot: Bow with Infinity
+
+Result:
+
+- Top slot after update: Bow with Infinity and Mending
+- Bottom slot after update: Bow with Infinity
+- Output slot: Bow without enchantments
+
+Note:
+
+- This confirms that mutually exclusive bow enchantments can be merged into the top input item.
+
 **Progress**
 
 - [x] Project setup
@@ -102,6 +136,7 @@ Note:
 - [x] Test Fire Aspect II + Looting III case
 - [x] Test Sharpness V + Looting III + Fire Aspect II case
 - [x] Test reversed input order
-- [ ] Test armor protection conflict case
+- [x] Test armor protection conflict case
+- [x] Test bow Mending + Infinity conflict case
 - [ ] Test durability behavior
 - [x] Clean debug logs before release
