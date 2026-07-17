@@ -33,7 +33,7 @@ After the grindstone updates:
 
 - Top slot becomes: Diamond Sword with Fire Aspect II and Looting III
 - Bottom slot remains: Diamond Sword with Looting III
-- Result slot shows a normal grindstone output
+- Result slot shows a normal grindstone output without enchantments
 
 **Legacy Bugs Implementation**
 
@@ -41,10 +41,15 @@ LB-001 v1 originally recreated the visible merged result in the output slot.
 
 LB-001 v2 is closer to the original 24w11a behavior. It intentionally mutates the top input item by copying enchantments from the bottom input item into it.
 
-**Confirmed Test**
+**Confirmed Test A**
+
+Input:
 
 - Top slot: Diamond Sword with Fire Aspect II
 - Bottom slot: Diamond Sword with Looting III
+
+Result:
+
 - Top slot after update: Diamond Sword with Fire Aspect II and Looting III
 - Bottom slot after update: Diamond Sword with Looting III
 - Output slot: Diamond Sword without enchantments
@@ -55,6 +60,19 @@ Runtime log confirmed:
 - Top input contained `looting=>3` and `fire_aspect=>2`
 - Bottom input still contained only `looting=>3`
 
+**Confirmed Test B**
+
+Input:
+
+- Top slot: Diamond Sword with Sharpness V
+- Bottom slot: Diamond Sword with Fire Aspect II and Looting III
+
+Result:
+
+- Top slot after update: Diamond Sword with Sharpness V, Fire Aspect II, and Looting III
+- Bottom slot after update: Diamond Sword with Fire Aspect II and Looting III
+- Output slot: Diamond Sword without enchantments
+
 **Progress**
 
 - [x] Project setup
@@ -64,8 +82,8 @@ Runtime log confirmed:
 - [x] Implement v1 output-slot recreation
 - [x] Implement v2 top-input mutation
 - [x] Test Fire Aspect II + Looting III case
-- [ ] Test Sharpness V + Looting III + Fire Aspect II case
+- [x] Test Sharpness V + Looting III + Fire Aspect II case
 - [ ] Test reversed input order
 - [ ] Test armor protection conflict case
 - [ ] Test durability behavior
-- [ ] Clean debug logs before release
+- [x] Clean debug logs before release
