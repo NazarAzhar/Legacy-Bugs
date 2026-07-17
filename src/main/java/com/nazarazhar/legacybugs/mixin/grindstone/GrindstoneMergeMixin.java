@@ -10,11 +10,11 @@ package com.nazarazhar.legacybugs.mixin.grindstone;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.EnchantmentTags;
+import net.minecraft.world.inventory.GrindstoneMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
-import net.minecraft.world.inventory.GrindstoneMenu;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spongepowered.asm.mixin.Mixin;
@@ -44,8 +44,6 @@ public abstract class GrindstoneMergeMixin {
         legacybugs$copyEnchantmentsIntoTopInput(input, additional);
 
         LB001_LOGGER.info("[LB-001] Applied 24w11a-style top input mutation.");
-        LB001_LOGGER.info("[LB-001] top/input components after mutation={}", input.getComponents());
-        LB001_LOGGER.info("[LB-001] bottom/additional components={}", additional.getComponents());
     }
 
     @Unique
