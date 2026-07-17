@@ -1,3 +1,10 @@
+/*
+ * Legacy Bugs
+ * Copyright (C) 2026 Nazar Azhar
+ *
+ * SPDX-License-Identifier: GPL-3.0-only
+ */
+
 package com.nazarazhar.legacybugs;
 
 import net.fabricmc.api.ModInitializer;
