@@ -34,17 +34,30 @@ Confirmed test examples:
 ### LB-002 — MC-271398 Crafting Result Bug
 
 **Snapshot:** 24w18a  
-**Status:** Research
+**Status:** Implemented / Testing
 
 This bug is related to crafting result handling in snapshot 24w18a.
 
-The research target is to reproduce the original 24w18a behavior as accurately as possible in Minecraft 1.21.6 / 26.1.2.
+In the original 24w18a behavior, remaining items from a crafting recipe can be returned to the wrong crafting grid position when the recipe is placed away from the top-left corner of the grid.
 
-Relevant areas being investigated:
+Legacy Bugs restores this behavior in Minecraft 1.21.6 / 26.1.2.
 
-- Crafting result slot behavior
-- Remaining items after crafting
-- Container items returned to the crafting grid
+Confirmed behavior:
+
+- Crafting remainders are applied starting from the top-left crafting grid slot
+- The original recipe position inside the crafting grid is ignored
+- Container items can appear in the wrong slot
+- The original input item can remain in its original slot when the recipe is placed away from the top-left corner
+
+Confirmed test examples:
+
+- Honey Bottle placed in the top-left crafting slot
+- Honey Bottle placed in the center crafting slot
+- Honey Bottle placed in the bottom-right crafting slot
+- Sugar crafting result leaves a Glass Bottle in the top-left slot when the recipe is offset
+
+Relevant implementation area:
+
 - `ResultSlot.onTake`
 - `CraftingInput.Positioned`
 - `getRemainingItems`
