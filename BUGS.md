@@ -179,54 +179,125 @@ Minecraft 1.21.6 / 26.1.2
 MC-271398
 
 **Status**  
-🟡 Research
+🟢 Implemented / Testing
 
 **Description**  
 A crafting result handling bug observed in snapshot 24w18a.
 
-The bug is related to how the crafting result slot handles remaining items after a crafted item is taken. The research target is to reproduce the original 24w18a behavior as accurately as possible in Minecraft 1.21.6 / 26.1.2.
+The bug is related to how the crafting result slot handles remaining items after a crafted item is taken.
 
-Unlike LB-001, this bug is expected to involve crafting menu logic instead of grindstone logic.
+In 24w18a, remaining items from a crafting recipe can be returned to the wrong crafting grid position when the recipe is placed away from the top-left corner of the grid.
+
+The research target is to reproduce the original 24w18a behavior as accurately as possible in Minecraft 1.21.6 / 26.1.2.
+
+Unlike LB-001, this bug involves crafting result slot logic instead of grindstone logic.
 
 **Observed 24w18a Behavior**
 
-To be documented during research.
+The bug was confirmed using the Honey Bottle to Sugar recipe.
+
+Honey Bottle normally leaves behind a Glass Bottle after crafting Sugar.
+
+In 24w18a, when the Honey Bottle is placed away from the top-left crafting slot, the Glass Bottle appears in the top-left slot instead of replacing the original Honey Bottle position.
+
+The original Honey Bottle can remain in its original slot.
+
+**Observed Vanilla 26.1.2 Behavior**
+
+In Minecraft 1.21.6 / 26.1.2, the bug is fixed.
+
+When the Honey Bottle is placed in the center or bottom-right of the crafting grid, the Glass Bottle correctly appears in the same position as the original Honey Bottle.
 
 **Legacy Bugs Implementation**
 
-Not implemented yet.
+LB-002 restores the 24w18a-style crafting remainder bug.
 
-The implementation target will be added after the exact 24w18a trigger condition is confirmed.
+The implementation intentionally applies remaining crafting items starting from the top-left crafting grid slot instead of using the recipe's original `left` and `top` position.
 
-**Research Notes**
+Modern 26.1.2 vanilla uses `CraftingInput.Positioned` to map remaining items back to the correct grid position.
 
-Relevant current Minecraft classes to investigate:
+LB-002 intentionally ignores that positioned mapping and restores the older broken behavior.
 
-- `net.minecraft.world.inventory.CraftingMenu`
-- `net.minecraft.world.inventory.ResultSlot`
-- `net.minecraft.world.item.crafting.CraftingInput`
+**Technical Notes**
 
-Important method to inspect:
+24w18a behavior used direct input indexes when processing remaining items:
+
+- Recipe input was created from the active recipe shape
+- Remaining items were processed from index `0`
+- The original recipe position inside the crafting grid was not preserved correctly
+
+Modern 26.1.2 behavior uses:
+
+- `CraftingInput.Positioned`
+- `left`
+- `top`
+- `width`
+- `height`
+
+The important modern method is:
 
 - `ResultSlot.onTake`
 
-Potential behavior area:
+The LB-002 mixin targets:
 
-- Crafting result slot
-- Remaining items after crafting
-- Container items returned to the crafting grid
-- Grid position mapping
-- `CraftingInput.Positioned`
-- `getRemainingItems`
+- `net.minecraft.world.inventory.ResultSlot`
+
+**Confirmed Test A**
+
+Input:
+
+- Honey Bottle placed in the top-left of the 3x3 crafting grid
+- Crafting result: Sugar
+
+24w18a-style result:
+
+- Glass Bottle appears in the top-left crafting slot
+- This is normal behavior because the recipe is already positioned at the top-left
+
+Result:
+
+- Passed
+
+**Confirmed Test B**
+
+Input:
+
+- Honey Bottle placed in the center of the 3x3 crafting grid
+- Crafting result: Sugar
+
+Expected 24w18a-style result:
+
+- Glass Bottle appears in the top-left crafting slot
+- Original Honey Bottle remains in the center slot
+
+Result:
+
+- Passed
+
+**Confirmed Test C**
+
+Input:
+
+- Honey Bottle placed in the bottom-right of the 3x3 crafting grid
+- Crafting result: Sugar
+
+Expected 24w18a-style result:
+
+- Glass Bottle appears in the top-left crafting slot
+- Original Honey Bottle remains in the bottom-right slot
+
+Result:
+
+- Passed
 
 **Progress**
 
 - [x] Create LB-002 documentation section
 - [x] Create crafting mixin package
-- [ ] Locate current 26.1.2 crafting result code
-- [ ] Locate 24w18a crafting result code
-- [ ] Compare 24w18a behavior with 26.1.2 behavior
-- [ ] Identify exact bug trigger condition
-- [ ] Implement mixin
-- [ ] Test in game
-- [ ] Document confirmed behavior
+- [x] Locate current 26.1.2 crafting result code
+- [x] Locate 24w18a crafting result code
+- [x] Compare 24w18a behavior with 26.1.2 behavior
+- [x] Identify exact bug trigger condition
+- [x] Implement mixin
+- [x] Test in game
+- [x] Document confirmed behavior
