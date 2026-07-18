@@ -68,3 +68,19 @@ Detailed bug notes and test progress are documented in:
 
 ```text
 BUGS.md
+```
+
+## Disclaimer
+
+Legacy Bugs is intended for singleplayer research, historical preservation, testing, and educational purposes.
+
+Some restored behaviors may be considered unfair, unintended, or unwanted on multiplayer servers. Do not use this mod on servers without explicit permission from the server owner or administrators.
+
+This project is not intended to be a cheat mod, hacked client, or exploit tool. Its purpose is to document and reproduce selected historical Minecraft bugs for learning, preservation, and controlled experimentation.
+
+## Requirements
+
+- Minecraft 1.21.6 / 26.1.2
+- Fabric Loader
+- Fabric API
+- Java 25
