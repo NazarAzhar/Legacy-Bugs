@@ -1,15 +1,28 @@
 # Legacy Bugs
 
-Legacy Bugs is a research-based Fabric mod for Minecraft 1.21.6 / 26.1.2 that restores historical Minecraft bugs as accurately as possible.
+Legacy Bugs is a research-based Fabric mod for Minecraft 1.21.11 that restores historical Minecraft bugs as accurately as possible.
+
+This branch is the Java 21 port of Legacy Bugs for Minecraft 1.21.11. The main branch is kept separately for the modern Java 25 / Minecraft 26.x version.
 
 Each bug is studied from original snapshot behavior, documented, tested, and reimplemented carefully instead of being recreated by guesswork.
+
+## Supported Version
+
+This branch targets:
+
+- Minecraft 1.21.11
+- Java 21
+- Fabric Loader 0.17.3 or later
+- Fabric API 0.141.x for Minecraft 1.21.11
+
+Do not use this JAR for Minecraft 26.1.2 or other Java 25 versions.
 
 ## Current Bugs
 
 ### LB-001 — Grindstone Enchantment Merge Bug
 
 **Snapshot:** 24w11a  
-**Status:** Implemented / Testing
+**Status:** Implemented / Tested on Minecraft 1.21.11
 
 This bug was introduced during the Item Data Components refactoring in snapshot 24w11a.
 
@@ -34,13 +47,13 @@ Confirmed test examples:
 ### LB-002 — MC-271398 Crafting Result Bug
 
 **Snapshot:** 24w18a  
-**Status:** Implemented / Testing
+**Status:** Implemented / Tested on Minecraft 1.21.11
 
 This bug is related to crafting result handling in snapshot 24w18a.
 
 In the original 24w18a behavior, remaining items from a crafting recipe can be returned to the wrong crafting grid position when the recipe is placed away from the top-left corner of the grid.
 
-Legacy Bugs restores this behavior in Minecraft 1.21.6 / 26.1.2.
+Legacy Bugs restores this behavior in Minecraft 1.21.11.
 
 Confirmed behavior:
 
@@ -62,6 +75,22 @@ Relevant implementation area:
 - `CraftingInput.Positioned`
 - `getRemainingItems`
 
+## Branches
+
+This repository uses separate branches for different Minecraft and Java targets.
+
+```text
+main
+= Minecraft 26.x
+= Java 25
+
+version/1.21.11
+= Minecraft 1.21.11
+= Java 21
+```
+
+Future backports, such as Minecraft 1.20.5, should use separate branches.
+
 ## Research Notes
 
 Detailed bug notes and test progress are documented in:
@@ -80,7 +109,7 @@ This project is not intended to be a cheat mod, hacked client, or exploit tool. 
 
 ## Requirements
 
-- Minecraft 1.21.6 / 26.1.2
-- Fabric Loader
-- Fabric API
-- Java 25
+- Minecraft 1.21.11
+- Fabric Loader 0.17.3 or later
+- Fabric API 0.141.x for Minecraft 1.21.11
+- Java 21
