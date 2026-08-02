@@ -7,6 +7,7 @@
 
 package com.nazarazhar.legacybugs.mixin.grindstone;
 
+import com.nazarazhar.legacybugs.config.LegacyBugsConfig;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.EnchantmentTags;
@@ -22,67 +23,72 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
 @Mixin(GrindstoneMenu.class)
 public abstract class GrindstoneMergeMixin {
-    @Unique
-    private static final Logger LB001_LOGGER = LoggerFactory.getLogger("Legacy-Bugs/LB-001");
+	@Unique
+	private static final Logger LB001_LOGGER = LoggerFactory.getLogger("Legacy-Bugs/LB-001");
 
-    @Inject(
-            method = "mergeItems",
-            at = @At("HEAD")
-    )
-    private void legacybugs$restore24w11aTopSlotMutation(
-            ItemStack input,
-            ItemStack additional,
-            CallbackInfoReturnable<ItemStack> cir
-    ) {
-        if (!legacybugs$shouldApply(input, additional)) {
-            return;
-        }
+	@Inject(
+			method = "mergeItems",
+			at = @At("HEAD")
+	)
+	private void legacybugs$restore24w11aTopSlotMutation(
+			ItemStack input,
+			ItemStack additional,
+			CallbackInfoReturnable<ItemStack> cir
+	) {
+		if (!LegacyBugsConfig.isLb001GrindstoneMergeEnabled()) {
+			return;
+		}
 
-        legacybugs$copyEnchantmentsIntoTopInput(input, additional);
+		if (!legacybugs$shouldApply(input, additional)) {
+			return;
+		}
 
-        LB001_LOGGER.info("[LB-001] Applied 24w11a-style top input mutation.");
-    }
+		legacybugs$copyEnchantmentsIntoTopInput(input, additional);
 
-    @Unique
-    private static boolean legacybugs$shouldApply(ItemStack input, ItemStack additional) {
-        if (input.isEmpty() || additional.isEmpty()) {
-            return false;
-        }
+		LB001_LOGGER.info("[LB-001] Applied 24w11a-style top input mutation.");
+	}
 
-        if (input.getCount() > 1 || additional.getCount() > 1) {
-            return false;
-        }
+	@Unique
+	private static boolean legacybugs$shouldApply(ItemStack input, ItemStack additional) {
+		if (input.isEmpty() || additional.isEmpty()) {
+			return false;
+		}
 
-        if (!input.is(additional.getItem())) {
-            return false;
-        }
+		if (input.getCount() > 1 || additional.getCount() > 1) {
+			return false;
+		}
 
-        if (!input.isDamageableItem()) {
-            return false;
-        }
+		if (!input.is(additional.getItem())) {
+			return false;
+		}
 
-        return EnchantmentHelper.hasAnyEnchantments(input)
-                || EnchantmentHelper.hasAnyEnchantments(additional);
-    }
+		if (!input.isDamageableItem()) {
+			return false;
+		}
 
-    @Unique
-    private static void legacybugs$copyEnchantmentsIntoTopInput(ItemStack topInput, ItemStack bottomInput) {
-        ItemEnchantments bottomEnchantments = EnchantmentHelper.getEnchantmentsForCrafting(bottomInput);
+		return EnchantmentHelper.hasAnyEnchantments(input)
+				|| EnchantmentHelper.hasAnyEnchantments(additional);
+	}
 
-        if (bottomEnchantments.isEmpty()) {
-            return;
-        }
+	@Unique
+	private static void legacybugs$copyEnchantmentsIntoTopInput(ItemStack topInput, ItemStack bottomInput) {
+		ItemEnchantments bottomEnchantments = EnchantmentHelper.getEnchantmentsForCrafting(bottomInput);
 
-        EnchantmentHelper.updateEnchantments(topInput, mutable -> {
-            for (Object2IntMap.Entry<Holder<Enchantment>> entry : bottomEnchantments.entrySet()) {
-                Holder<Enchantment> enchantment = entry.getKey();
+		if (bottomEnchantments.isEmpty()) {
+			return;
+		}
 
-                if (!enchantment.is(EnchantmentTags.CURSE) || mutable.getLevel(enchantment) == 0) {
-                    mutable.upgrade(enchantment, entry.getIntValue());
-                }
-            }
-        });
-    }
+		EnchantmentHelper.updateEnchantments(topInput, mutable -> {
+			for (Object2IntMap.Entry<Holder<Enchantment>> entry : bottomEnchantments.entrySet()) {
+				Holder<Enchantment> enchantment = entry.getKey();
+
+				if (!enchantment.is(EnchantmentTags.CURSE) || mutable.getLevel(enchantment) == 0) {
+					mutable.upgrade(enchantment, entry.getIntValue());
+				}
+			}
+		});
+	}
 }
