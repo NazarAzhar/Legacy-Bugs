@@ -71,7 +71,7 @@ Legacy Bugs includes an in-game configuration screen for controlling the mod wit
 Default keybind:
 
 ```text
--  Open Legacy Bugs
+- 
 ```
 
 The keybind can be changed from Minecraft's Controls / Key Binds menu.
