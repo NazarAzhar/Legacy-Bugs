@@ -2,9 +2,7 @@
 
 Legacy Bugs is a research-based Fabric mod that restores selected historical Minecraft bugs as accurately as possible.
 
-The mod was originally developed for **Minecraft Java Edition 26.1.2** and has also been successfully tested on **Minecraft Java Edition 26.2**.
-
-Both tested versions use and require **Java 25**. The mod may also work on other Minecraft versions that use Java 25, but compatibility with untested versions is not guaranteed.
+The current main development target is **Minecraft Java Edition 26.2** using **Java 25**.
 
 Each bug is studied from its original snapshot behavior, documented, tested, and carefully reimplemented instead of being recreated through guesswork.
 
@@ -66,16 +64,60 @@ Relevant implementation areas:
 - `CraftingInput.Positioned`
 - `getRemainingItems`
 
+## Configuration Screen
+
+Legacy Bugs includes an in-game configuration screen for controlling the mod without manually editing the config file.
+
+Default keybind:
+
+```text
+-  Open Legacy Bugs
+```
+
+The keybind can be changed from Minecraft's Controls / Key Binds menu.
+
+The configuration screen contains:
+
+- Global Toggle
+- LB-001 Grindstone Enchantment Merge
+- LB-002 Crafting Result Bug
+- Refresh button
+- Current permission / edit status
+
+Toggle states are displayed as:
+
+```text
+TRUE
+FALSE
+```
+
+On singleplayer worlds, the world owner can change Legacy Bugs settings directly from the configuration screen.
+
+On dedicated Fabric servers:
+
+- Operators can view and modify Legacy Bugs settings
+- Non-operators can view the current settings
+- Non-operators cannot modify the settings
+- Non-operators see `View only (operator permission required)`
+
+The server is authoritative. Changes made through the configuration screen are validated and saved by the server rather than trusting the client.
+
 ## Bug Toggle System
 
-Legacy Bugs includes a control system that allows the restored bugs to be enabled or disabled globally or individually.
+Legacy Bugs allows the restored bugs to be enabled or disabled globally or individually.
 
-The config file is created automatically after the game is launched once with the mod installed.
+The config file is created automatically after the game or server is launched once with the mod installed.
 
-Config location:
+Singleplayer / client config location:
 
 ```text
 .minecraft/config/legacy-bugs.json
+```
+
+Dedicated server config location:
+
+```text
+config/legacy-bugs.json
 ```
 
 Default config:
@@ -98,7 +140,7 @@ If `enabled` is set to `false`, all restored bug behavior is disabled even if th
 
 ## Commands
 
-Legacy Bugs also provides in-game commands for controlling the restored bugs without manually editing the config file.
+Legacy Bugs also provides in-game commands for controlling the restored bugs.
 
 Available commands:
 
@@ -122,19 +164,39 @@ Command behavior:
 - `/legacybugs lb002 enable` enables the crafting result bug
 - `/legacybugs lb002 disable` disables the crafting result bug
 
-Changes made through commands are saved to:
+On dedicated servers, Legacy Bugs commands are restricted to operators / moderators.
 
-```text
-.minecraft/config/legacy-bugs.json
-```
+Changes made through commands are saved to the active Legacy Bugs config file.
+
+## Multiplayer and Server Behavior
+
+Legacy Bugs has been tested on a Fabric dedicated server running Minecraft 26.2.
+
+Confirmed server behavior:
+
+- Legacy Bugs loads successfully on the dedicated server
+- `legacy-bugs.json` is created in the server config directory
+- Operators can use Legacy Bugs commands
+- Operators can modify settings through the configuration screen
+- Non-operators cannot use the Legacy Bugs command interface
+- Non-operators can view server settings through the configuration screen
+- Non-operators cannot modify server settings through the configuration screen
+- Configuration changes are saved by the server
 
 ## Version Compatibility
 
-Legacy Bugs was originally developed for **Minecraft Java Edition 26.1.2**.
+The current development target is:
 
-The same mod build has also been confirmed to run successfully on **Minecraft Java Edition 26.2**.
+```text
+Minecraft Java Edition 26.2
+Java 25
+Fabric Loader 0.19.3
+Fabric API 0.157.0+26.2
+```
 
-Compatibility with other Minecraft versions that use Java 25 may be possible. However, Minecraft updates can change internal classes, methods, mappings, Fabric APIs, or Mixin targets, so untested versions are not officially guaranteed to work.
+A separate branch is maintained for Minecraft 1.21.11.
+
+Compatibility with other Minecraft versions is not guaranteed because Minecraft updates can change internal classes, methods, mappings, Fabric APIs, networking behavior, or Mixin targets.
 
 ## Branches
 
@@ -142,7 +204,7 @@ This repository uses separate branches for different Minecraft and Java targets.
 
 ```text
 main
-= Minecraft 26.1.2 / 26.2
+= Minecraft 26.2
 = Java 25
 
 version/1.21.11
@@ -171,8 +233,7 @@ This project is not intended to be a cheat mod, hacked client, or exploit tool. 
 ## Requirements
 
 - **Minecraft Edition:** Java Edition
-- **Originally Developed For:** Minecraft 26.1.2
-- **Confirmed Working On:** Minecraft 26.1.2 and 26.2
+- **Minecraft Version:** 26.2
 - **Java Runtime:** Java 25
-- **Mod Loader:** Fabric Loader
-- **Required Library:** Fabric API
+- **Mod Loader:** Fabric Loader 0.19.3
+- **Required Library:** Fabric API 0.157.0+26.2
