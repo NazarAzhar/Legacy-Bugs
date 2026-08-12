@@ -11,6 +11,7 @@ public final class LegacyBugsClientState {
 	private static boolean enabled;
 	private static boolean lb001Enabled;
 	private static boolean lb002Enabled;
+	private static boolean canEdit;
 	private static boolean receivedState;
 
 	private LegacyBugsClientState() {
@@ -19,11 +20,13 @@ public final class LegacyBugsClientState {
 	public static void update(
 			boolean enabled,
 			boolean lb001Enabled,
-			boolean lb002Enabled
+			boolean lb002Enabled,
+			boolean canEdit
 	) {
 		LegacyBugsClientState.enabled = enabled;
 		LegacyBugsClientState.lb001Enabled = lb001Enabled;
 		LegacyBugsClientState.lb002Enabled = lb002Enabled;
+		LegacyBugsClientState.canEdit = canEdit;
 		LegacyBugsClientState.receivedState = true;
 	}
 
@@ -31,6 +34,7 @@ public final class LegacyBugsClientState {
 		enabled = false;
 		lb001Enabled = false;
 		lb002Enabled = false;
+		canEdit = false;
 		receivedState = false;
 	}
 
@@ -44,6 +48,10 @@ public final class LegacyBugsClientState {
 
 	public static boolean isLb002Enabled() {
 		return lb002Enabled;
+	}
+
+	public static boolean canEdit() {
+		return canEdit;
 	}
 
 	public static boolean hasReceivedState() {

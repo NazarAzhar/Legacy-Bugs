@@ -16,7 +16,8 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 public record LegacyBugsConfigStatePayload(
 		boolean enabled,
 		boolean lb001Enabled,
-		boolean lb002Enabled
+		boolean lb002Enabled,
+		boolean canEdit
 ) implements CustomPacketPayload {
 
 	public static final Type<LegacyBugsConfigStatePayload> TYPE =
@@ -30,6 +31,8 @@ public record LegacyBugsConfigStatePayload(
 					LegacyBugsConfigStatePayload::lb001Enabled,
 					ByteBufCodecs.BOOL,
 					LegacyBugsConfigStatePayload::lb002Enabled,
+					ByteBufCodecs.BOOL,
+					LegacyBugsConfigStatePayload::canEdit,
 					LegacyBugsConfigStatePayload::new
 			);
 
