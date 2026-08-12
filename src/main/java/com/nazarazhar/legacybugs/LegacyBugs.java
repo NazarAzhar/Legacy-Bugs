@@ -9,6 +9,7 @@ package com.nazarazhar.legacybugs;
 
 import com.nazarazhar.legacybugs.command.LegacyBugsCommand;
 import com.nazarazhar.legacybugs.config.LegacyBugsConfig;
+import com.nazarazhar.legacybugs.network.LegacyBugsNetworking;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
@@ -22,6 +23,7 @@ public class LegacyBugs implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LegacyBugsConfig.load();
+		LegacyBugsNetworking.register();
 		LegacyBugsCommand.register();
 
 		LOGGER.info("Legacy Bugs initialized.");

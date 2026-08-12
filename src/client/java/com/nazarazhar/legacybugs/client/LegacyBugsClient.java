@@ -7,11 +7,24 @@
 
 package com.nazarazhar.legacybugs.client;
 
+import com.nazarazhar.legacybugs.client.network.LegacyBugsClientNetworking;
+import com.nazarazhar.legacybugs.client.network.LegacyBugsClientState;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 
 public class LegacyBugsClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
-		// This entrypoint is suitable for setting up client-specific logic, such as rendering.
+		LegacyBugsClientNetworking.register();
+
+		ClientPlayConnectionEvents.JOIN.register(
+				(handler, sender, client) ->
+						LegacyBugsClientNetworking.requestConfigState()
+		);
+
+		ClientPlayConnectionEvents.DISCONNECT.register(
+				(handler, client) ->
+						LegacyBugsClientState.clear()
+		);
 	}
 }
