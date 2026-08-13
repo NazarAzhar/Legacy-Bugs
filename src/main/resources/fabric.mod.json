@@ -19,6 +19,9 @@
 		],
 		"client": [
 			"com.nazarazhar.legacybugs.client.LegacyBugsClient"
+		],
+		"modmenu": [
+			"com.nazarazhar.legacybugs.client.integration.LegacyBugsModMenu"
 		]
 	},
 	"mixins": [

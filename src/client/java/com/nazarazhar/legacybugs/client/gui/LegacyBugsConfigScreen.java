@@ -16,6 +16,8 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
 public final class LegacyBugsConfigScreen extends Screen {
+	private final Screen parent;
+
 	private static final int PANEL_WIDTH = 420;
 	private static final int PANEL_HEIGHT = 214;
 
@@ -33,7 +35,12 @@ public final class LegacyBugsConfigScreen extends Screen {
 	private Button refreshButton;
 
 	public LegacyBugsConfigScreen() {
+		this(null);
+	}
+
+	public LegacyBugsConfigScreen(Screen parent) {
 		super(Component.literal("Legacy Bugs"));
+		this.parent = parent;
 	}
 
 	@Override
@@ -182,6 +189,15 @@ public final class LegacyBugsConfigScreen extends Screen {
 	}
 
 	@Override
+	public void onClose() {
+		if (this.parent != null) {
+			this.minecraft.gui.setScreen(this.parent);
+		} else {
+			super.onClose();
+		}
+	}
+
+	@Override
 	public void extractBackground(
 			GuiGraphicsExtractor graphics,
 			int mouseX,
@@ -240,12 +256,6 @@ public final class LegacyBugsConfigScreen extends Screen {
 			int mouseY,
 			float delta
 	) {
-		/*
-		 * Screen renders the background and vanilla widgets here.
-		 *
-		 * The Legacy Bugs panel itself is rendered in extractBackground(),
-		 * so it stays behind the buttons instead of darkening them.
-		 */
 		super.extractRenderState(graphics, mouseX, mouseY, delta);
 
 		int panelX = (this.width - PANEL_WIDTH) / 2;
