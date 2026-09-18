@@ -29,7 +29,7 @@ public class LegacyBugsClient implements ClientModInitializer {
 			KeyMappingHelper.registerKeyMapping(
 					new KeyMapping(
 							"key.legacy-bugs.open_config",
-							InputConstants.Type.KEYSYM,
+							InputConstants.Type.KEYBOARD,
 							InputConstants.KEY_MINUS,
 							LEGACY_BUGS_CATEGORY
 					)

@@ -9,6 +9,7 @@ package com.nazarazhar.legacybugs.mixin.crafting;
 
 import com.nazarazhar.legacybugs.config.LegacyBugsConfig;
 import net.minecraft.core.NonNullList;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.ResultSlot;
@@ -89,7 +90,7 @@ public abstract class CraftingResultBugMixin {
 						replacement.grow(itemStack.getCount());
 						this.craftSlots.setItem(slot, replacement);
 					} else if (!this.player.getInventory().add(replacement)) {
-						this.player.drop(replacement, false);
+						this.player.drop(replacement, false, Prediction.SERVER_ONLY);
 					}
 				}
 			}
