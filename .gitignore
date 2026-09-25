@@ -1,40 +1,44 @@
-# gradle
-
+# Gradle
 .gradle/
 build/
 out/
-classes/
 
-# eclipse
+# Gradle temporary files
+**/.gradle/
+**/build/
 
-*.launch
-
-# idea
-
+# IntelliJ IDEA
 .idea/
 *.iml
 *.ipr
 *.iws
 
-# vscode
-
-.settings/
-.vscode/
-bin/
+# Eclipse
+*.launch
 .classpath
 .project
+.settings/
 
-# macos
+# VS Code
+.vscode/
+bin/
 
-*.DS_Store
-
-# fabric
-
-run/
-
-# java
-
+# Java
+*.class
+*.log
 hs_err_*.log
+hs_err_pid*.log
 replay_*.log
+replay_pid*.log
 *.hprof
 *.jfr
+
+# Fabric
+run/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
