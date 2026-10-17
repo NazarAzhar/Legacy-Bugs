@@ -8,6 +8,8 @@
 		"Nazar Azhar"
 	],
 	"contact": {
+		"homepage": "https://modrinth.com/mod/legacy-bugs",
+		"issues": "https://github.com/NazarAzhar/Legacy-Bugs/issues",
 		"sources": "https://github.com/NazarAzhar/Legacy-Bugs"
 	},
 	"license": "GPL-3.0-only",
